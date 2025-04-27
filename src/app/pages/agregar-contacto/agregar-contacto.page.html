@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button [routerLink]="'/contactos'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nuevo Contacto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="guardarContacto()" #contactoForm="ngForm">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input 
+        type="text" 
+        name="nombre"
+        [(ngModel)]="nombre"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Teléfono</ion-label>
+      <ion-input 
+        type="tel" 
+        name="telefono"
+        [(ngModel)]="telefono"
+        required
+        pattern="[0-9]{9,15}"
+      ></ion-input>
+    </ion-item>
+
+    <ion-grid class="ion-margin-top">
+      <ion-row>
+        <ion-col>
+          <ion-button 
+            type="submit" 
+            expand="block" 
+            color="success"
+            [disabled]="!contactoForm.valid"
+          >
+            Guardar
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button 
+            expand="block" 
+            color="medium"
+            routerLink="/contactos"
+          >
+            Cancelar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

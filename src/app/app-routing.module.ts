@@ -30,6 +30,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/contactos/contactos.module').then( m => m.ContactosPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'agregar-contacto',
+    loadChildren: () => import('./pages/agregar-contacto/agregar-contacto.module').then( m => m.AgregarContactoPageModule),
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

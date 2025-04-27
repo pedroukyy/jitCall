@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/menu"></ion-back-button>
+      <ion-back-button [routerLink]="'/menu'"></ion-back-button>
     </ion-buttons>
     <ion-title>Mis Contactos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button expand="full" color="success" (click)="anadirContacto()">
+  <ion-button expand="full" color="success" [routerLink]="'/agregar-contacto'">
     Añadir Contacto
   </ion-button>
 

@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { Contacto } from 'src/entities/contacto.entity';
+import { NotificacionService } from 'src/app/core/services/notificacion.service';
+import { UsuarioService } from 'src/app/core/services/usuario.service';
 
 @Component({
   selector: 'app-contactos',
@@ -13,12 +15,13 @@ import { Contacto } from 'src/entities/contacto.entity';
 })
 export class ContactosPage implements OnInit {
   contactos: Contacto[] = [];
-  userId: string = '';
   usuarioId: string | undefined;
 
   constructor(
     private contactoService: ContactoService,
+    private usuarioService: UsuarioService,
     private authService: AuthService,
+    private notification: NotificacionService,
     private alertController: AlertController
   ) {
     this.usuarioId = this.authService.getUID();
@@ -35,7 +38,16 @@ export class ContactosPage implements OnInit {
     });
   }
 
-  async hacerLlamada(telefono: any) {
+  async hacerLlamada(telefono: string | undefined) {
+    if (telefono && this.usuarioId){
+      const userFrom = await this.usuarioService.find(this.usuarioId);
+      const user = await this.usuarioService.findPorContacto(telefono);
+
+      if (user && userFrom){
+        this.notification.notificar(user, userFrom);
+      }
+
+    }
     window.open(`tel:${telefono}`, '_system');
   }
 
@@ -56,42 +68,6 @@ export class ContactosPage implements OnInit {
           text: 'Eliminar',
           handler: () => {
             this.eliminarContacto(contactoId);
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  async anadirContacto() {
-    if (!this.userId) {
-      console.error('UID no disponible');
-      return;
-    }
-
-    const alert = await this.alertController.create({
-      header: 'Nuevo Contacto',
-      inputs: [
-        { name: 'nombre', type: 'text', placeholder: 'Nombre' },
-        { name: 'telefono', type: 'tel', placeholder: 'Teléfono' }
-      ],
-      buttons: [
-        { text: 'Cancelar', role: 'cancel' },
-        {
-          text: 'Guardar',
-          handler: async (data) => {
-            if (!data.nombre || !data.telefono) {
-              this.mostrarError('Por favor completa todos los campos');
-              return false;
-            }
-
-            try {
-              await this.validarYGuardarContacto(data);
-              return true;
-            } catch (error) {
-              return false;
-            }
           }
         }
       ]
