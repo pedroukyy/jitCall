@@ -35,6 +35,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/agregar-contacto/agregar-contacto.module').then( m => m.AgregarContactoPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'chat',
+    loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule)
+  },
 ];
 
 @NgModule({
@@ -44,3 +48,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

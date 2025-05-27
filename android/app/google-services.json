@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "493909512176",
+    "project_id": "jitcall-5905b",
+    "storage_bucket": "jitcall-5905b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493909512176:android:7a631134c69d9228699735",
+        "android_client_info": {
+          "package_name": "jitcall.videollamada"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm_gfN0vSC4SL7HQNKmzcZwW11B2KVOSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,169 @@
+/* contactos.page.scss */
+ion-content {
+  --background: linear-gradient(135deg, rgba(var(--ion-color-primary-rgb), 0.1) 0%, rgba(#2c3e50, 0.2) 100%);
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+      rgba(255,255,255,0.05) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255,255,255,0.05) 50%,
+      rgba(255,255,255,0.05) 75%,
+      transparent 75%,
+      transparent);
+    transform: rotate(45deg);
+    z-index: 0;
+    animation: animateBackground 20s linear infinite;
+  }
+}
+
+ion-button[expand="full"][color="success"] {
+  --background: linear-gradient(135deg, var(--ion-color-success) 0%, #2c3e50 100%);
+  --box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  --border-radius: 10px;
+  margin: 1rem 0;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    --box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  }
+}
+
+ion-list {
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+ion-item-sliding {
+  margin: 0.5rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  
+  ion-item {
+    --background: rgba(255,255,255,0.1);
+    --border-color: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    margin: 0.5rem 0;
+    transition: all 0.3s ease;
+
+    ion-label {
+      h2 {
+        color: white;
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      }
+
+      p {
+        color: rgba(255,255,255,0.8);
+        font-size: 0.9rem;
+        letter-spacing: 0.3px;
+      }
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      --background: rgba(255,255,255,0.15);
+    }
+  }
+}
+
+ion-item-options {
+  border-radius: 10px;
+  overflow: hidden;
+  
+  ion-button {
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+    transition: all 0.3s ease;
+
+    ion-icon {
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      ion-icon {
+        transform: scale(1.1);
+      }
+    }
+
+    &[color="danger"] {
+      --background: rgba(var(--ion-color-danger-rgb), 0.9);
+    }
+
+    &[color="primary"] {
+      --background: rgba(var(--ion-color-primary-rgb), 0.9);
+    }
+
+    &[color="success"] {
+      --background: rgba(var(--ion-color-success-rgb), 0.9);
+    }
+  }
+}
+
+@keyframes animateBackground {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+/* Estilos para las alertas personalizadas */
+.custom-alert {
+  --backdrop-opacity: 0.7;
+  --background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+
+  .alert-head {
+    color: white;
+  }
+
+  .alert-message {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .alert-button-group {
+    button {
+      color: white;
+      background: rgba(var(--ion-color-primary-rgb), 0.8);
+      border-radius: 5px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: var(--ion-color-primary);
+      }
+    }
+  }
+}
+
+/* Responsive para pantallas grandes */
+@media (min-width: 768px) {
+  ion-content {
+    padding: 2rem 20%;
+  }
+
+  ion-item-sliding {
+    margin: 0.75rem 0;
+    
+    ion-item {
+      --padding-start: 1.5rem;
+      --padding-end: 1.5rem;
+    }
+  }
+
+  ion-button[expand="full"][color="success"] {
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+    height: 50px;
+  }
+}

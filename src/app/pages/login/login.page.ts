@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular'; // Para mostrar mensajes al usuario
+import { AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -12,30 +12,70 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class LoginPage {
   email: string = '';
   password: string = '';
+  submitted = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastController: ToastController
+    private alertController: AlertController
   ) {}
 
   async login() {
+    this.submitted = true;
+    
     try {
-      const pass = await this.authService.login(this.email, this.password);
-      if (pass) this.router.navigate(['/menu']); // O donde tengas tu página principal
+      const result = await this.authService.login(this.email, this.password);
+      if (result) {
+        await this.showSuccessAlert();
+        this.router.navigate(['/menu']);
+      }
     } catch (error: any) {
       console.error('Error en login:', error);
-      this.presentToast('Error: ' + (error.message || 'No se pudo iniciar sesión'));
+      this.handleError(error);
     }
   }
 
-  async presentToast(message: string) {
-    const toast = await this.toastController.create({
-      message,
-      duration: 3000,
-      position: 'bottom',
-      color: 'primary',
+  private async showSuccessAlert() {
+    const alert = await this.alertController.create({
+      header: 'Bienvenido',
+      message: '¡Has iniciado sesión correctamente!',
+      buttons: ['OK'],
+      cssClass: 'custom-alert-success',
+      backdropDismiss: false
     });
-    toast.present();
+    await alert.present();
+  }
+
+  private handleError(error: any) {
+    let errorMessage = 'Error desconocido';
+    
+    if (error.code) {
+      switch (error.code) {
+        case 'auth/user-not-found':
+          errorMessage = 'Usuario no registrado';
+          break;
+        case 'auth/wrong-password':
+          errorMessage = 'Contraseña incorrecta';
+          break;
+        case 'auth/invalid-email':
+          errorMessage = 'Email inválido';
+          break;
+        default:
+          errorMessage = `Error: ${error.message}`;
+      }
+    }
+    
+    this.showErrorAlert(errorMessage);
+  }
+
+  private async showErrorAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: message,
+      buttons: ['OK'],
+      cssClass: 'custom-alert',
+      backdropDismiss: true
+    });
+    await alert.present();
   }
 }

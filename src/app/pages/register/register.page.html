@@ -17,38 +17,61 @@
 
       <ion-card-content>
         <form (ngSubmit)="register()" #registerForm="ngForm">
-
           <div class="form-fields">
+            <!-- Nombre -->
             <ion-item>
               <ion-label position="floating">Nombre</ion-label>
-              <ion-input type="text" [(ngModel)]="nombre" name="nombre" required></ion-input>
+              <ion-input type="text" [(ngModel)]="nombre" name="nombre" required minlength="2" maxlength="30"></ion-input>
             </ion-item>
+            <ion-note color="danger" *ngIf="registerForm.submitted && registerForm.controls['nombre']?.errors">
+              <span *ngIf="registerForm.controls['nombre']?.errors?.['required']">Requerido</span>
+              <span *ngIf="registerForm.controls['nombre']?.errors?.['minlength']">Mínimo 2 caracteres</span>
+            </ion-note>
 
+            <!-- Apellido -->
             <ion-item>
               <ion-label position="floating">Apellido</ion-label>
-              <ion-input type="text" [(ngModel)]="apellido" name="apellido" required></ion-input>
+              <ion-input type="text" [(ngModel)]="apellido" name="apellido" required minlength="2" maxlength="30"></ion-input>
             </ion-item>
+            <ion-note color="danger" *ngIf="registerForm.submitted && registerForm.controls['apellido']?.errors">
+              <span *ngIf="registerForm.controls['apellido']?.errors?.['required']">Requerido</span>
+              <span *ngIf="registerForm.controls['apellido']?.errors?.['minlength']">Mínimo 2 caracteres</span>
+            </ion-note>
 
+            <!-- Teléfono -->
             <ion-item>
               <ion-label position="floating">Teléfono</ion-label>
-              <ion-input type="tel" [(ngModel)]="telefono" name="telefono" required></ion-input>
+              <ion-input type="tel" [(ngModel)]="telefono" name="telefono" required pattern="[0-9]{9,15}"></ion-input>
             </ion-item>
+            <ion-note color="danger" *ngIf="registerForm.submitted && registerForm.controls['telefono']?.errors">
+              <span *ngIf="registerForm.controls['telefono']?.errors?.['required']">Requerido</span>
+              <span *ngIf="registerForm.controls['telefono']?.errors?.['pattern']">Formato inválido</span>
+            </ion-note>
 
+            <!-- Email -->
             <ion-item>
               <ion-label position="floating">Email</ion-label>
-              <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+              <ion-input type="email" [(ngModel)]="email" name="email" required email></ion-input>
             </ion-item>
+            <ion-note color="danger" *ngIf="registerForm.submitted && registerForm.controls['email']?.errors">
+              <span *ngIf="registerForm.controls['email']?.errors?.['required']">Requerido</span>
+              <span *ngIf="registerForm.controls['email']?.errors?.['email']">Email inválido</span>
+            </ion-note>
 
+            <!-- Contraseña -->
             <ion-item>
               <ion-label position="floating">Contraseña</ion-label>
-              <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+              <ion-input type="password" [(ngModel)]="password" name="password" required minlength="6"></ion-input>
             </ion-item>
+            <ion-note color="danger" *ngIf="registerForm.submitted && registerForm.controls['password']?.errors">
+              <span *ngIf="registerForm.controls['password']?.errors?.['required']">Requerido</span>
+              <span *ngIf="registerForm.controls['password']?.errors?.['minlength']">Mínimo 6 caracteres</span>
+            </ion-note>
           </div>
 
           <ion-button expand="full" type="submit" [disabled]="!registerForm.form.valid" class="ion-margin-top">
             Registrarse
           </ion-button>
-
         </form>
       </ion-card-content>
     </ion-card>

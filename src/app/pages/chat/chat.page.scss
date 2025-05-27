@@ -1,0 +1,66 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 150px);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.messages-container {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  
+  .message {
+    margin: 0.5rem 0;
+    display: flex;
+    
+    &.my-message {
+      justify-content: flex-end;
+      
+      .message-content {
+        background: var(--ion-color-primary);
+        color: white;
+      }
+    }
+  }
+}
+
+.message-content {
+  max-width: 70%;
+  padding: 1rem;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  
+  p {
+    margin: 0;
+    word-break: break-word;
+  }
+  
+  .time {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    display: block;
+    text-align: right;
+    margin-top: 0.5rem;
+  }
+}
+
+.message-input {
+  --background: transparent;
+  --border-color: rgba(255, 255, 255, 0.2);
+  margin-top: auto;
+  
+  ion-input {
+    --color: white;
+    --placeholder-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  ion-button {
+    --color: var(--ion-color-primary);
+  }
+}

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/menu"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Chat Global</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="chat-container">
+    <div class="messages-container">
+      <div *ngFor="let mensaje of mensajes | async" 
+           [class.my-message]="mensaje.usuarioId === usuarioId"
+           class="message">
+        <div class="message-content">
+          <p>{{ mensaje.texto }}</p>
+          <span class="time">{{ mensaje.fecha?.toDate() | date:'shortTime' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <ion-item class="message-input">
+      <ion-input [(ngModel)]="nuevoMensaje" 
+                 placeholder="Escribe un mensaje..."
+                 (keyup.enter)="enviarMensaje()"></ion-input>
+      <ion-button slot="end" fill="clear" (click)="enviarMensaje()">
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+</ion-content>
